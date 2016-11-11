@@ -15,5 +15,20 @@ class Room
     @current_song = nil
   end
 
+  def check_available_space
+  end
+
+  def add_guest_to_room(guest)
+    #includes add to array and deducts money from guest
+  end
+
+  def guest_leaves_room(guest)
+  end
+
+  def add_song_to_playlist(song)
+  end
+
+  def play_song(song)
+  end
 
 end

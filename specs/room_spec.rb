@@ -1,6 +1,7 @@
 require('minitest/autorun')
 require('minitest/rg')
 require_relative('../room')
+require_relative('../guest')
 
 class TestRoom < Minitest::Test
   def setup
