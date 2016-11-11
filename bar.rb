@@ -1,21 +1,28 @@
+require_relative('guest')
+require_relative('room')
+
 class Bar 
 
   attr_reader :name, :rooms
-  attr_accessor :guests
+  attr_accessor :guests_in_bar
 
   def initialize(name, rooms)
     @name = name
     @rooms = rooms
-    @guest_list = []
+    @guests_in_bar = []
   end
 
-  def add_guests(guests)
-    @guest_list << guests
+  def add_guests_to_bar(guests)
+    @guests_in_bar << guests
   end
 
   def number_of_guests
-    return @guest_list.length
+    return @guests_in_bar.length
   end
+
+  # def return_guests_in_bar
+  #   return @guest_in_bar
+  # end
 
   
 end

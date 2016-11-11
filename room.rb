@@ -1,5 +1,6 @@
 require_relative('song')
 require_relative('guest')
+require_relative('bar')
 
 class Room
   attr_reader :name, :spaces, :entry_cost
@@ -16,10 +17,24 @@ class Room
   end
 
   def check_available_space
+    number_of_spaces = @spaces - @current_guests.count 
+    if number_of_spaces <= 0
+      space_available = 0
+    else space_available = number_of_spaces
+    end
+    return space_available
   end
 
-  def add_guest_to_room(guest)
-    #includes add to array and deducts money from guest
+  def add_guest_to_room(guest, bar)
+   
+    if check_available_space > 0
+      @current_guests << bar.guests_in_bar.delete(guest)
+      guest.money -= @entry_cost
+    end
+  end
+
+  def guests_in_room
+    return @current_guests.count
   end
 
   def guest_leaves_room(guest)

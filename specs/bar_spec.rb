@@ -6,7 +6,7 @@ require_relative('../bar')
 
 class TestBar < Minitest::Test
   def setup
-    @room1 = Room.new("Cannibal Corpse's Magical Adventure", 5, 10)
+    @room1 = Room.new("Cannibal Corpse's Magical Adventure", 2, 10)
     @room2 = Room.new("Hipster Heaven", 8, 15)
     @room3 = Room.new("Washed up 90's ravin' haven", 10, 3)
 
@@ -27,9 +27,9 @@ class TestBar < Minitest::Test
   end 
 
   def test_can_add_guests
-    @bar1.add_guests(@guest1)
-    @bar1.add_guests(@guest2)
-    @bar1.add_guests(@guest3)
+    @bar1.add_guests_to_bar(@guest1)
+    @bar1.add_guests_to_bar(@guest2)
+    @bar1.add_guests_to_bar(@guest3)
     assert_equal(3, @bar1.number_of_guests)
   end
 end
