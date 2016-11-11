@@ -17,7 +17,8 @@ class Bar
   end
 
   def number_of_guests
-    return @guests_in_bar.length
+    return @guests_in_bar.count
+    binding.pry
   end
 
   # def return_guests_in_bar

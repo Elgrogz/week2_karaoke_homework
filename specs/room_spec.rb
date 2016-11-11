@@ -17,41 +17,70 @@ class TestRoom < Minitest::Test
     @guest3 = Guest.new("Disco Stu", 20)
 
     @bar1 = Bar.new("El Grogz's Karaoke Bar", @rooms)
+
+    @song1 = Song.new("Gravel Pit", "Wu-tang Clan", "Hip Hop")
+    @song2 = Song.new("Song 2", "Blur", "Britpop")
   end
 
-  def test_can_make_room
-    assert_equal(5, @room1.spaces)
-    assert_equal("Hipster Heaven", @room2.name)
-    assert_equal(3, @room3.entry_cost)
-  end
+  # def test_can_make_room
+  #   assert_equal(5, @room1.spaces)
+  #   assert_equal("Hipster Heaven", @room2.name)
+  #   assert_equal(3, @room3.entry_cost)
+  # end
 
-  def test_add_guest_to_room
-    @bar1.add_guests_to_bar(@guest1)
-    @bar1.add_guests_to_bar(@guest2)
-    @bar1.add_guests_to_bar(@guest3)
-    assert_equal(3, @bar1.number_of_guests)
+  # def test_add_guest_to_room
+  #   @bar1.add_guests_to_bar(@guest1)
+  #   @bar1.add_guests_to_bar(@guest2)
+  #   @bar1.add_guests_to_bar(@guest3)
+  #   assert_equal(3, @bar1.number_of_guests)
 
-    @room2.add_guest_to_room(@guest1, @bar1)
-    assert_equal(1, @room2.guests_in_room)
-    assert_equal(85, @guest1.money)
-    assert_equal(2, @bar1.number_of_guests)
-  end
+  #   @room2.add_guest_to_room(@guest1, @bar1)
+  #   assert_equal(1, @room2.guests_in_room)
+  #   assert_equal(85, @guest1.money)
+  #   assert_equal(2, @bar1.number_of_guests)
+  # end
 
   
 
-  def test_check_available_space__space_available
-    @bar1.add_guests_to_bar(@guest1)
-    @bar1.add_guests_to_bar(@guest2)
-    @bar1.add_guests_to_bar(@guest3)
+  # def test_check_available_space__space_available
+  #   @bar1.add_guests_to_bar(@guest1)
+  #   @bar1.add_guests_to_bar(@guest2)
+  #   @bar1.add_guests_to_bar(@guest3)
 
-    @room2.add_guest_to_room(@guest1, @bar1)
-    assert_equal(1, @room2.check_available_space)
-    @room2.add_guest_to_room(@guest2, @bar1)
-    assert_equal(0, @room2.check_available_space)
-    @room2.add_guest_to_room(@guest3, @bar1)
-    assert_equal(0, @room2.check_available_space)
-    assert_equal(2, @room2.guests_in_room)
-   
+  #   @room2.add_guest_to_room(@guest1, @bar1)
+  #   assert_equal(1, @room2.check_available_space)
+  #   @room2.add_guest_to_room(@guest2, @bar1)
+  #   assert_equal(0, @room2.check_available_space)
+  #   @room2.add_guest_to_room(@guest3, @bar1)
+  #   assert_equal(0, @room2.check_available_space)
+  #   assert_equal(2, @room2.guests_in_room)
+
+  # # end
+
+  # def test_guest_can_leave_room
+  #   @bar1.add_guests_to_bar(@guest1)
+  #   @bar1.add_guests_to_bar(@guest2)
+  #   @bar1.add_guests_to_bar(@guest3)
+
+  #   @room2.add_guest_to_room(@guest1, @bar1)
+  #   assert_equal(1, @room2.check_available_space)
+  #   @room2.add_guest_to_room(@guest2, @bar1)
+  #   assert_equal(0, @room2.check_available_space)
+  #   assert_equal(2, @room2.guests_in_room)
+  #   @room2.guest_leaves_room(@guest1, @bar1)
+  #   assert_equal(1, @room2.guests_in_room)
+  #   assert_equal(2, @bar1.number_of_guests)
+  # end
+
+  # def test_add_song_to_playlist
+  #   @room1.add_song_to_playlist(@song2)
+  #   assert_equal(1, @room1.playlist.count)
+  # end
+
+  def test_can_play_song
+    @room1.add_song_to_playlist(@song2)
+    @room1.play_song(@song2)
+    assert_equal("Song 2", @room1.current_song.name)
   end
-
 end
+
