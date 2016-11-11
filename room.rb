@@ -26,12 +26,21 @@ class Room
     return space_available
   end
 
-  def add_guest_to_room(guest, bar)
-   
-    if check_available_space > 0
+#not needed now but maybe to add insufficient funds message later?
+  # def check_customer_funds(guest, room)
+  #   funds_available = guest.money - room.entry_cost
+  #   if funds_available > 0
+  #     enough_funds = true
+  #   else
+  #     enough_funds = false
+  #   end
+  #   return enough_funds
+  # end
+
+  def add_guest_to_room(guest, bar, room)
+    if check_available_space > 0 && guest.money > room.entry_cost
       @current_guests << bar.guests_in_bar.delete(guest)
       guest.money -= @entry_cost
-
     end
   end
 
@@ -53,6 +62,10 @@ class Room
     else 
       puts "Playlist does not contain song"
     end
+  end
+
+  def current_singer(guest)
+    
   end
 
 end

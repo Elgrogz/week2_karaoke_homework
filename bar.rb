@@ -1,6 +1,7 @@
 require_relative('guest')
 require_relative('room')
 
+
 class Bar 
 
   attr_reader :name, :rooms
@@ -18,12 +19,5 @@ class Bar
 
   def number_of_guests
     return @guests_in_bar.count
-    binding.pry
   end
-
-  # def return_guests_in_bar
-  #   return @guest_in_bar
-  # end
-
-  
 end
