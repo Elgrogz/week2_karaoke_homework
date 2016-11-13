@@ -2,7 +2,7 @@ require('minitest/autorun')
 require('minitest/rg')
 require_relative('../guest')
 require_relative('../room')
-require_relative('../bar_app')
+require_relative('../bar')
 
 class TestBar < Minitest::Test
   def setup
@@ -18,7 +18,7 @@ class TestBar < Minitest::Test
 
     # @guests = [@guest1, @guest2, @guest3]
 
-    @bar1 = Bar.new("El Grogz's Karaoke Bar", @rooms)
+    @bar1 = Bar.new("GG's Karaoke Bar", @rooms)
   end
 
   def test_can_create_bar

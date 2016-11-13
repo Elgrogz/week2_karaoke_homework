@@ -1,6 +1,6 @@
 require_relative('guest')
 require_relative('room')
-
+require_relative('viewer')
 
 class Bar 
 
