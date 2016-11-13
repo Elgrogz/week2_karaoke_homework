@@ -2,7 +2,7 @@ require('minitest/autorun')
 require('minitest/rg')
 require_relative('../room')
 require_relative('../guest')
-require_relative('../bar_app')
+require_relative('../bar')
 
 class TestRoom < Minitest::Test
   def setup
@@ -12,7 +12,7 @@ class TestRoom < Minitest::Test
 
     @rooms = [@room1, @room2, @room3]
 
-    @guest1 = Guest.new("Gregor", 100)
+    @guest1 = Guest.new("Gregor", 100, "Song 2")
     @guest2 = Guest.new("Dave the Rave", 50)
     @guest3 = Guest.new("Disco Stu", 20)
 
@@ -22,40 +22,40 @@ class TestRoom < Minitest::Test
     @song2 = Song.new("Song 2", "Blur", "Britpop")
   end
 
-  # def test_can_make_room
-  #   assert_equal(5, @room1.spaces)
-  #   assert_equal("Hipster Heaven", @room2.name)
-  #   assert_equal(3, @room3.entry_cost)
-  # end
+  def test_can_make_room
+    assert_equal(5, @room1.spaces)
+    assert_equal("Hipster Heaven", @room2.name)
+    assert_equal(3, @room3.entry_cost)
+  end
 
-  # def test_add_guest_to_room
-  #   @bar1.add_guests_to_bar(@guest1)
-  #   @bar1.add_guests_to_bar(@guest2)
-  #   @bar1.add_guests_to_bar(@guest3)
-  #   assert_equal(3, @bar1.number_of_guests)
+  def test_add_guest_to_room
+    @bar1.add_guests_to_bar(@guest1)
+    @bar1.add_guests_to_bar(@guest2)
+    @bar1.add_guests_to_bar(@guest3)
+    assert_equal(3, @bar1.number_of_guests)
 
-  #   @room2.add_guest_to_room(@guest1, @bar1)
-  #   assert_equal(1, @room2.guests_in_room)
-  #   assert_equal(85, @guest1.money)
-  #   assert_equal(2, @bar1.number_of_guests)
-  # end
+    @room2.add_guest_to_room(@guest1, @bar1, @room2)
+    assert_equal(1, @room2.guests_in_room)
+    assert_equal(85, @guest1.money)
+    assert_equal(2, @bar1.number_of_guests)
+  end
 
   
 
-  # def test_check_available_space__space_available
-  #   @bar1.add_guests_to_bar(@guest1)
-  #   @bar1.add_guests_to_bar(@guest2)
-  #   @bar1.add_guests_to_bar(@guest3)
+  def test_check_available_space__space_available
+    @bar1.add_guests_to_bar(@guest1)
+    @bar1.add_guests_to_bar(@guest2)
+    @bar1.add_guests_to_bar(@guest3)
 
-  #   @room2.add_guest_to_room(@guest1, @bar1)
-  #   assert_equal(1, @room2.check_available_space)
-  #   @room2.add_guest_to_room(@guest2, @bar1)
-  #   assert_equal(0, @room2.check_available_space)
-  #   @room2.add_guest_to_room(@guest3, @bar1)
-  #   assert_equal(0, @room2.check_available_space)
-  #   assert_equal(2, @room2.guests_in_room)
+    @room2.add_guest_to_room(@guest1, @bar1, @room2)
+    assert_equal(1, @room2.check_available_space)
+    @room2.add_guest_to_room(@guest2, @bar1, @room2)
+    assert_equal(0, @room2.check_available_space)
+    @room2.add_guest_to_room(@guest3, @bar1, @room2)
+    assert_equal(0, @room2.check_available_space)
+    assert_equal(2, @room2.guests_in_room)
 
-  # # end
+  end
 
   def test_check_customer_funds
     @bar1.add_guests_to_bar(@guest1)
@@ -64,37 +64,45 @@ class TestRoom < Minitest::Test
     assert_equal(85, @guest1.money)
   end
 
-  # def test_guest_can_leave_room
-  #   @bar1.add_guests_to_bar(@guest1)
-  #   @bar1.add_guests_to_bar(@guest2)
-  #   @bar1.add_guests_to_bar(@guest3)
+  def test_guest_can_leave_room
+    @bar1.add_guests_to_bar(@guest1)
+    @bar1.add_guests_to_bar(@guest2)
+    @bar1.add_guests_to_bar(@guest3)
 
-  #   @room2.add_guest_to_room(@guest1, @bar1)
-  #   assert_equal(1, @room2.check_available_space)
-  #   @room2.add_guest_to_room(@guest2, @bar1)
-  #   assert_equal(0, @room2.check_available_space)
-  #   assert_equal(2, @room2.guests_in_room)
-  #   @room2.guest_leaves_room(@guest1, @bar1)
-  #   assert_equal(1, @room2.guests_in_room)
-  #   assert_equal(2, @bar1.number_of_guests)
-  # end
+    @room2.add_guest_to_room(@guest1, @bar1, @room2)
+    assert_equal(1, @room2.check_available_space)
+    @room2.add_guest_to_room(@guest2, @bar1, @room2)
+    assert_equal(0, @room2.check_available_space)
+    assert_equal(2, @room2.guests_in_room)
+    @room2.guest_leaves_room(@guest1, @bar1)
+    assert_equal(1, @room2.guests_in_room)
+    assert_equal(2, @bar1.number_of_guests)
+  end
 
-  # def test_add_song_to_playlist
-  #   @room1.add_song_to_playlist(@song2)
-  #   assert_equal(1, @room1.playlist.count)
-  # end
+  def test_add_song_to_playlist
+    @room1.add_song_to_playlist(@song2)
+    assert_equal(1, @room1.playlist.count)
+  end
 
-  # def test_can_play_song
-  #   @room1.add_song_to_playlist(@song2)
-  #   @room1.play_song(@song2)
-  #   assert_equal("Song 2", @room1.current_song.name)
-  # end
+  def test_can_play_song
+    @room1.add_song_to_playlist(@song2)
+    @room1.play_song(@room1, @song2)
+    assert_equal("Song 2", @room1.current_song.name)
+  end
 
   def test_current_singer
     @bar1.add_guests_to_bar(@guest1)
     @bar1.add_guests_to_bar(@guest2)
-    @room2.add_guest_to_room(@guest1, @bar1)
-    @room2.add_guest_to_room(@guest2, @bar1)
+    @room2.add_guest_to_room(@guest1, @bar1, @room2)
+    @room2.add_guest_to_room(@guest2, @bar1, @room2)
+  end
+
+  def test_fav_song
+    @bar1.add_guests_to_bar(@guest1)
+    @room2.add_guest_to_room(@guest1, @bar1, @room2)
+    @room2.add_song_to_playlist(@song2)
+    @room2.play_song(@room2, @song2)
+    assert_equal(true, fav_song_check(@room2))
   end
 end
-
+# "Gregor's favourite song has come on. Gregor goes mental!"
